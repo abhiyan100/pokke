@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" width="1100" height="640">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12131A"/><stop offset="1" stop-color="#1D1433"/></linearGradient></defs>
+<rect width="1100" height="640" fill="url(#g)"/>
+<rect x="64" y="64" width="64" height="64" rx="16" fill="#8B5CF6"/><path d="M82 96h28M96 82v28" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+<g font-family='-apple-system, Helvetica Neue, Arial, sans-serif' fill="#F5F3FF"><text x="150" y="92" font-size="26" font-weight="700">Loomkit</text><text x="150" y="120" font-size="17" fill="#A8A3C2">v2.4 · MIT · 14.2k stars</text>
+<text x="64" y="232" font-size="58" font-weight="800" letter-spacing="-1.5">Layout animations that</text><text x="64" y="300" font-size="58" font-weight="800" letter-spacing="-1.5">survive real content.</text>
+<text x="64" y="362" font-size="22" fill="#A8A3C2">Shared-element transitions, springs and gesture physics in 6 kB.</text><text x="64" y="394" font-size="22" fill="#A8A3C2">Works with any React renderer. No wrapper components.</text></g>
+<rect x="64" y="446" width="520" height="64" rx="14" fill="#0B0B11" stroke="#2C2A44" stroke-width="2"/><text x="92" y="487" font-family='SF Mono, Menlo, Consolas, monospace' font-size="22" fill="#C4B5FD">npm install loomkit</text><rect x="604" y="446" width="170" height="64" rx="14" fill="#8B5CF6"/><text x="640" y="487" font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="21" fill="#fff" font-weight="700">Read docs</text>
+<g fill="none" stroke="#8B5CF6" stroke-width="3" opacity=".8"><rect x="840" y="150" width="170" height="110" rx="18"/><rect x="880" y="300" width="130" height="170" rx="18" opacity=".6"/><path d="M925 260c0 20-6 24-6 40" stroke-dasharray="6 8"/></g>
+<text x="64" y="586" font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="18" fill="#6E6A8C">Seen on a thread about motion libraries worth trying</text>
+</svg>

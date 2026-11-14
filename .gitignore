@@ -1,0 +1,11 @@
+node_modules/
+out/
+dist/
+site/dist/
+test-results/
+playwright-report/
+tests/__shots__/
+.DS_Store
+*.log
+.env
+.env.*

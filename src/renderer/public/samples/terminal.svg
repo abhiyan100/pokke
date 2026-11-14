@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520">
+<rect width="1000" height="520" fill="#1B1B1F"/><rect width="1000" height="46" fill="#26262C"/><circle cx="26" cy="23" r="6.5" fill="#FF5F57"/><circle cx="48" cy="23" r="6.5" fill="#FEBC2E"/><circle cx="70" cy="23" r="6.5" fill="#28C840"/>
+<g font-family='SF Mono, Menlo, Consolas, monospace' font-size="20"><text x="36" y="100"><tspan fill="#7EE787">~/site</tspan><tspan fill="#E6E6EA"> $ ffmpeg -i demo.mov -vf "fps=30,scale=1280:-2" \</tspan></text><text x="36" y="134" fill="#E6E6EA">    -c:v libx264 -crf 23 -preset slow -an demo.mp4</text>
+<text x="36" y="196"><tspan fill="#7EE787">~/site</tspan><tspan fill="#E6E6EA"> $ ffmpeg -i demo.mp4 -vf "fps=12,scale=720:-1:flags=lanczos,\</tspan></text><text x="36" y="230" fill="#E6E6EA">    split[a][b];[a]palettegen[p];[b][p]paletteuse" demo.gif</text>
+<text x="36" y="292" fill="#8B8B96">frame=  214 fps= 61 q=-0.0 size=    3812kB time=00:00:17.75</text><text x="36" y="326" fill="#8B8B96">video:3812kB audio:0kB muxing overhead: 0.000000%</text>
+<text x="36" y="388"><tspan fill="#7EE787">~/site</tspan><tspan fill="#E6E6EA"> $ du -h demo.*</tspan></text><text x="36" y="422" fill="#E6E6EA">3.7M  demo.gif    1.1M  demo.mp4    48M  demo.mov</text><text x="36" y="476"><tspan fill="#7EE787">~/site</tspan><tspan fill="#E6E6EA"> $ </tspan><tspan fill="#E6E6EA">▍</tspan></text></g>
+</svg>

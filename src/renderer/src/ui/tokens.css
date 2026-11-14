@@ -1,0 +1,50 @@
+/*
+ * The palette is the indigo dye vat: each tone is a deeper dip of the same
+ * cloth, from kamenozoki (one dip) to kachi (the darkest). Kinari is undyed
+ * cotton, used for thread and paper. Akane, madder red, is the single accent
+ * and marks only what is live: the model working, the thing to press next.
+ */
+:root {
+  --kachi: #181b39;
+  --kachi-deep: #101229;
+  --kon: #20346a;
+  --kon-lift: #2a4285;
+  --kon-shade: #1a2a57;
+  --ai: #165e83;
+  --hanada: #2792c3;
+  --kamenozoki: #a2d7dd;
+  --kinari: #fbfaf5;
+  --kinari-shade: #ebe8dc;
+  --akane: #e0454e;
+  --ink: #171a36;
+
+  --thread: var(--kinari);
+  --text: var(--kinari);
+  --text-soft: #b4cfdc;
+  --text-faint: #7f96b5;
+  --ink-soft: #4a5378;
+  --ink-faint: #7d85a3;
+
+  --font: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', ui-rounded, system-ui, sans-serif;
+
+  --size-1: 12px;
+  --size-2: 13px;
+  --size-3: 15px;
+  --size-4: 18px;
+  --size-5: 24px;
+  --size-6: 34px;
+
+  --radius-paper: 5px;
+  --radius-cloth: 14px;
+  --radius-pill: 999px;
+
+  /* Shadows are tinted with the darkest indigo rather than neutral black. */
+  --shadow-paper: 0 1px 1px rgb(9 11 30 / 0.5), 0 12px 26px -12px rgb(9 11 30 / 0.8);
+  --shadow-lift: 0 2px 3px rgb(9 11 30 / 0.45), 0 26px 44px -18px rgb(9 11 30 / 0.9);
+  --shadow-sheet: 0 30px 80px -20px rgb(6 8 24 / 0.9);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --focus: 0 0 0 2px var(--kachi), 0 0 0 4px var(--kamenozoki);
+}

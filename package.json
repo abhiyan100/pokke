@@ -1,0 +1,49 @@
+{
+  "name": "xtractor",
+  "version": "0.1.0",
+  "description": "Snip anything on screen, add a note, and let your own AI model file it into a pocket with a ready-to-paste prompt.",
+  "private": true,
+  "type": "module",
+  "main": "out/main/index.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "oxlint src site/src tests scripts",
+    "test": "vitest run",
+    "test:ui": "playwright test --project=ui",
+    "ui:dev": "vite --config vite.browser.config.ts",
+    "site:dev": "vite --config site/vite.config.ts",
+    "site:build": "vite build --config site/vite.config.ts",
+    "site:preview": "vite preview --config site/vite.config.ts",
+    "test:app": "electron-vite build && playwright test --project=app",
+    "test:site": "playwright test --project=site"
+  },
+  "optionalDependencies": {
+    "uiohook-napi": "^1.5.5"
+  },
+  "devDependencies": {
+    "@fontsource/zen-maru-gothic": "^5.3.1",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.3.2",
+    "electron-vite": "^6.0.0",
+    "motion": "^14.14.0",
+    "oxlint": "^1.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760">
+<rect width="1200" height="760" fill="#F3EEE4"/>
+<g font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="15" fill="#1F3D2B"><text x="64" y="62" font-weight="700" font-size="19">Fieldnotes</text><text x="820" y="62">Journal</text><text x="910" y="62">Studio</text><text x="990" y="62">Visit</text><rect x="1066" y="38" width="76" height="36" rx="18" fill="#1F3D2B"/><text x="1085" y="62" fill="#F3EEE4">Book</text></g>
+<text x="52" y="520" font-family='Georgia, Times New Roman, serif' font-size="470" font-weight="400" fill="#1F3D2B" letter-spacing="-18">07</text>
+<rect x="690" y="130" width="446" height="420" rx="28" fill="#E8674A"/>
+<circle cx="913" cy="340" r="118" fill="#F3EEE4"/><path d="M795 340a118 118 0 0 1 236 0z" fill="#1F3D2B"/>
+<g font-family='Georgia, Times New Roman, serif' fill="#1F3D2B"><text x="64" y="628" font-size="46">Seven rooms, one long table,</text><text x="64" y="684" font-size="46" font-style="italic">and nothing on the walls.</text></g>
+<g font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="16" fill="#5B6B5E"><text x="692" y="606">A residency for people who make things slowly.</text><text x="692" y="632">Applications open until the first frost.</text></g>
+<rect x="692" y="664" width="168" height="48" rx="24" fill="none" stroke="#1F3D2B" stroke-width="2"/><text x="722" y="695" font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="16" fill="#1F3D2B" font-weight="600">Read the brief</text>
+</svg>

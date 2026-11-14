@@ -1,0 +1,19 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' width='800' height='1000'>
+<defs><clipPath id='m'><rect x='44' y='299' width='712' height='579' rx='30'/></clipPath></defs>
+<rect width='800' height='1000' fill='#FFFFFF'/>
+<circle cx='78' cy='84' r='36' fill='#E8674A'/><text x='78' y='97' text-anchor='middle' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='34' font-weight='800' fill='#fff'>F</text>
+<text x='134' y='78' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='30' font-weight='800' fill='#0F1419'>Fieldnotes</text>
+<g transform='translate(318.0 54)'><circle cx='14' cy='14' r='14' fill='#1D9BF0'/><path d='M8 14.5l4 4 8-9' fill='none' stroke='#fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/></g>
+<text x='134' y='114' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='26' fill='#536471'>@fieldnotes · 2h</text>
+<text x='44' y='196' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='42' fill='#0F1419'>This landing page design is unreal.</text><text x='44' y='253' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='42' fill='#0F1419'>Big numerals, one coral block.</text>
+<g clip-path='url(#m)'><rect x='44' y='299' width='712' height='579' fill='#F3EEE4'/>
+<text x='78' y='355' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='22' font-weight='800' fill='#1F3D2B'>Fieldnotes</text>
+<rect x='626' y='329' width='96' height='40' rx='20' fill='#1F3D2B'/><text x='653' y='356' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='19' fill='#F3EEE4'>Book</text>
+<text x='64' y='657.98' font-family='Georgia, Times New Roman, serif' font-size='291' fill='#1F3D2B' letter-spacing='-10'>07</text>
+<rect x='442.72' y='414.8' width='270.56' height='277.92' rx='26' fill='#E8674A'/>
+<circle cx='578.0' cy='553.76' r='75.27' fill='#F3EEE4'/><path d='M502.73 553.76a75.27 75.27 0 0 1 150.54 0z' fill='#1F3D2B'/>
+<text x='78' y='804' font-family='Georgia, Times New Roman, serif' font-size='34' fill='#1F3D2B'>Seven rooms, one long table,</text>
+<text x='78' y='846' font-family='Georgia, Times New Roman, serif' font-size='34' font-style='italic' fill='#1F3D2B'>and nothing on the walls.</text></g>
+<rect x='44' y='299' width='712' height='579' rx='30' fill='none' stroke='#EFF3F4' stroke-width='2'/>
+<path d='M60 944a16 16 0 0 1 16-16h10a16 16 0 0 1 0 32h-6l-10 8v-9a16 16 0 0 1-10-15z' fill='none' stroke='#536471' stroke-width='3'/><text x='118' y='955' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='25' fill='#536471'>48</text><path d='M246 934l10-10 10 10M256 925v24h20M292 954l-10 10-10-10M282 963v-24h-20' fill='none' stroke='#536471' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><text x='304' y='955' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='25' fill='#536471'>310</text><path d='M453 962s-19-12-19-26a11 11 0 0 1 19-7 11 11 0 0 1 19 7c0 14-19 26-19 26z' fill='none' stroke='#536471' stroke-width='3'/><text x='490' y='955' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='25' fill='#536471'>2.4K</text><path d='M622 962v-14M635 962v-30M648 962v-22M661 962v-36' fill='none' stroke='#536471' stroke-width='3.4' stroke-linecap='round'/><text x='676' y='955' font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size='25' fill='#536471'>88K</text>
+</svg>

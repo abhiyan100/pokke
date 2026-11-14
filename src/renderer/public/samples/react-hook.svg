@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720">
+<rect width="1100" height="720" fill="#0D1117"/><rect width="1100" height="52" fill="#161B22"/><text x="28" y="33" font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="16" fill="#8B949E">useSpringValue.ts</text>
+<g font-family='SF Mono, Menlo, Consolas, monospace' font-size="21"><text x="48" y="110"><tspan fill="#FF7B72">import</tspan><tspan fill="#C9D1D9"> { useEffect, useRef, useState } </tspan><tspan fill="#FF7B72">from</tspan><tspan fill="#A5D6FF"> 'react'</tspan></text>
+<text x="48" y="174"><tspan fill="#FF7B72">export function</tspan><tspan fill="#D2A8FF"> useSpringValue</tspan><tspan fill="#C9D1D9">(target: </tspan><tspan fill="#79C0FF">number</tspan><tspan fill="#C9D1D9">, stiffness = </tspan><tspan fill="#79C0FF">260</tspan><tspan fill="#C9D1D9">, damping = </tspan><tspan fill="#79C0FF">26</tspan><tspan fill="#C9D1D9">) {</tspan></text>
+<text x="48" y="210"><tspan fill="#C9D1D9">  </tspan><tspan fill="#FF7B72">const</tspan><tspan fill="#C9D1D9"> [value, setValue] = </tspan><tspan fill="#D2A8FF">useState</tspan><tspan fill="#C9D1D9">(target)</tspan></text>
+<text x="48" y="246"><tspan fill="#C9D1D9">  </tspan><tspan fill="#FF7B72">const</tspan><tspan fill="#C9D1D9"> velocity = </tspan><tspan fill="#D2A8FF">useRef</tspan><tspan fill="#C9D1D9">(</tspan><tspan fill="#79C0FF">0</tspan><tspan fill="#C9D1D9">)</tspan></text>
+<text x="48" y="310"><tspan fill="#C9D1D9">  </tspan><tspan fill="#D2A8FF">useEffect</tspan><tspan fill="#C9D1D9">(() =&gt; {</tspan></text>
+<text x="48" y="346"><tspan fill="#C9D1D9">    </tspan><tspan fill="#FF7B72">let</tspan><tspan fill="#C9D1D9"> frame = </tspan><tspan fill="#79C0FF">0</tspan><tspan fill="#C9D1D9">, last = performance.</tspan><tspan fill="#D2A8FF">now</tspan><tspan fill="#C9D1D9">()</tspan></text>
+<text x="48" y="382"><tspan fill="#C9D1D9">    </tspan><tspan fill="#FF7B72">const</tspan><tspan fill="#D2A8FF"> step</tspan><tspan fill="#C9D1D9"> = (now: </tspan><tspan fill="#79C0FF">number</tspan><tspan fill="#C9D1D9">) =&gt; {</tspan></text>
+<text x="48" y="418"><tspan fill="#C9D1D9">      </tspan><tspan fill="#FF7B72">const</tspan><tspan fill="#C9D1D9"> dt = Math.</tspan><tspan fill="#D2A8FF">min</tspan><tspan fill="#C9D1D9">((now - last) / </tspan><tspan fill="#79C0FF">1000</tspan><tspan fill="#C9D1D9">, </tspan><tspan fill="#79C0FF">0.032</tspan><tspan fill="#C9D1D9">)</tspan></text>
+<text x="48" y="454"><tspan fill="#C9D1D9">      </tspan><tspan fill="#D2A8FF">setValue</tspan><tspan fill="#C9D1D9">((current) =&gt; {</tspan></text>
+<text x="48" y="490"><tspan fill="#C9D1D9">        </tspan><tspan fill="#FF7B72">const</tspan><tspan fill="#C9D1D9"> force = stiffness * (target - current) - damping * velocity.current</tspan></text>
+<text x="48" y="526"><tspan fill="#C9D1D9">        velocity.current += force * dt</tspan></text>
+<text x="48" y="562"><tspan fill="#C9D1D9">        </tspan><tspan fill="#FF7B72">return</tspan><tspan fill="#C9D1D9"> current + velocity.current * dt</tspan></text>
+<text x="48" y="598"><tspan fill="#C9D1D9">      })</tspan></text>
+<text x="48" y="634"><tspan fill="#C9D1D9">      frame = </tspan><tspan fill="#D2A8FF">requestAnimationFrame</tspan><tspan fill="#C9D1D9">(step)</tspan></text>
+<text x="48" y="670"><tspan fill="#8B949E">    } // …</tspan></text></g>
+</svg>

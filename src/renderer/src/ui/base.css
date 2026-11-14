@@ -1,0 +1,186 @@
+@import '@fontsource/zen-maru-gothic/latin-400.css';
+@import '@fontsource/zen-maru-gothic/latin-500.css';
+@import '@fontsource/zen-maru-gothic/latin-700.css';
+@import '@fontsource/zen-maru-gothic/latin-900.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--size-3);
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--kachi);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  box-shadow: var(--focus);
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--hanada);
+  color: var(--kinari);
+}
+
+/* Woven cotton: a neutral weave photograph laid over whatever indigo the element is dyed. */
+.cloth {
+  background-color: var(--cloth, var(--kon));
+  background-image: url('../assets/weave.jpg');
+  background-size: 176px;
+  background-blend-mode: soft-light;
+}
+
+/* Running stitch: the hem on anything that holds something. */
+.stitch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.stitch rect {
+  fill: none;
+  stroke: var(--stitch-colour, var(--thread));
+  stroke-width: var(--stitch-width, 1.6px);
+  stroke-dasharray: var(--stitch-dash, 6.5 5);
+  stroke-linecap: round;
+  opacity: var(--stitch-opacity, 0.9);
+}
+
+.stitch--soft {
+  --stitch-opacity: 0.38;
+}
+
+.stitch--accent {
+  --stitch-colour: var(--akane);
+  --stitch-opacity: 1;
+}
+
+.stitch--ink {
+  --stitch-colour: var(--kon);
+  --stitch-opacity: 0.55;
+}
+
+/* The thread travels while something is in progress. */
+.stitch--marching rect {
+  animation: stitch-march 0.9s linear infinite;
+}
+
+@keyframes stitch-march {
+  to {
+    stroke-dashoffset: -11.5;
+  }
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.keycap {
+  display: inline-grid;
+  font-family: inherit;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: var(--size-1);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-soft);
+  background: rgb(162 215 221 / 0.1);
+  box-shadow: inset 0 -1.5px 0 rgb(9 11 30 / 0.5), inset 0 0 0 1px rgb(162 215 221 / 0.16);
+}
+
+.keycap--ink {
+  color: var(--ink-soft);
+  background: rgb(23 26 54 / 0.06);
+  box-shadow: inset 0 -1.5px 0 rgb(23 26 54 / 0.14), inset 0 0 0 1px rgb(23 26 54 / 0.12);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stitch--marching rect {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

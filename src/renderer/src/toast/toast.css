@@ -1,0 +1,146 @@
+/* The toast window is transparent: only the thumbnail and its tab are visible. */
+html,
+body {
+  background: transparent;
+}
+
+/* In a plain browser there is no desktop behind it, so stand one in. */
+body[data-mock] {
+  background: linear-gradient(135deg, #3b5ba9, #7b5ea7 55%, #e08a6b);
+}
+
+.toast {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 296px;
+  height: 236px;
+}
+
+/* Keep in step with the end of the overlay's save animation, which lands exactly here. */
+.toast__paper {
+  position: absolute;
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 0 0 4px var(--kinari), 0 14px 30px rgb(9 11 30 / 0.55);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.toast__paper:hover {
+  transform: translateY(-3px);
+}
+
+.toast__paper:focus-visible {
+  box-shadow: 0 0 0 4px var(--kinari), 0 0 0 6px var(--kon), 0 14px 30px rgb(9 11 30 / 0.55);
+}
+
+.toast__paper img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.toast__tab {
+  --cloth: var(--kon);
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  max-width: 252px;
+  height: 34px;
+  padding: 0 14px 0 6px;
+  border-radius: var(--radius-pill);
+  color: var(--kinari);
+  font-size: var(--size-2);
+  font-weight: 700;
+  box-shadow: 0 10px 22px -8px rgb(9 11 30 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.09);
+  animation: tab-in 0.3s 0.1s var(--ease-out) both;
+}
+
+@keyframes tab-in {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+
+.toast__tab-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.toast__swatch {
+  --cloth: var(--kon-lift);
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.toast__title {
+  overflow: hidden;
+  font-weight: 500;
+  color: var(--text-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast__plain {
+  padding-left: 8px;
+}
+
+/* The red knot: the model is at work. */
+.toast__knot {
+  width: 9px;
+  height: 9px;
+  margin: 0 2px 0 8px;
+  border-radius: 50%;
+  background: var(--akane);
+  animation: knot 0.8s var(--ease-out) infinite alternate;
+}
+
+@keyframes knot {
+  from {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+}
+
+.toast__close {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--kachi);
+  color: var(--kinari);
+  box-shadow: 0 0 0 2px var(--kinari);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.toast__close .icon {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.4;
+}
+
+.toast:hover .toast__close,
+.toast__close:focus-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast__tab,
+  .toast__knot {
+    animation: none;
+  }
+}

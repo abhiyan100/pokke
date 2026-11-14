@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 820" width="1100" height="820">
+<rect width="1100" height="820" fill="#FBFBF9"/>
+<text x="72" y="96" font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="17" fill="#B4532A" font-weight="700">Research note</text>
+<g font-family='Georgia, Times New Roman, serif' fill="#16181D"><text x="72" y="160" font-size="48" font-weight="700">The first ten seconds decide</text><text x="72" y="216" font-size="48" font-weight="700">whether a tool gets a second try</text></g>
+<g font-family='Georgia, Times New Roman, serif' font-size="23" fill="#3A3F4A"><text x="72" y="284">Across 41 products we measured the time from install to the first</text><text x="72" y="318">moment a person got something they could keep. Under ten seconds,</text><text x="72" y="352">seven in ten came back the next day. Past a minute, fewer than two.</text></g>
+<g font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="18" fill="#3A3F4A"><text x="72" y="430" font-weight="700" fill="#16181D">Next-day return by time to first value</text>
+<g><text x="72" y="496">Under 10 s</text><rect x="230" y="476" width="640" height="30" rx="4" fill="#B4532A"/><text x="884" y="498" font-weight="700">71%</text></g>
+<g><text x="72" y="556">10–30 s</text><rect x="230" y="536" width="470" height="30" rx="4" fill="#D98A63"/><text x="714" y="558" font-weight="700">52%</text></g>
+<g><text x="72" y="616">30–60 s</text><rect x="230" y="596" width="300" height="30" rx="4" fill="#E8B79C"/><text x="544" y="618" font-weight="700">33%</text></g>
+<g><text x="72" y="676">Over 60 s</text><rect x="230" y="656" width="160" height="30" rx="4" fill="#F1D8C9"/><text x="404" y="678" font-weight="700">18%</text></g></g>
+<path d="M72 740h956" stroke="#DADBD6" stroke-width="2"/><text x="72" y="778" font-family='Georgia, Times New Roman, serif' font-size="21" font-style="italic" fill="#6B7180">"Speed to the first keepable thing beat every feature we tested."</text>
+</svg>

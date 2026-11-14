@@ -1,0 +1,973 @@
+/* The app's base styles assume a fixed window; a web page scrolls and its text can be selected. */
+html,
+body,
+#root {
+  height: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+
+body {
+  overflow: auto;
+  user-select: text;
+  cursor: auto;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page {
+  --cloth: var(--kachi);
+  --gutter: clamp(20px, 6vw, 96px);
+  min-height: 100vh;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-height: min(100svh, 900px);
+  padding: 120px var(--gutter) 72px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/*
+ * The roll runs off the right edge so the headline has the left half to
+ * itself. It is a container sized like the photograph, so the live cards
+ * inside can be placed by the photograph's own coordinates and scale with it.
+ */
+.hero__roll {
+  position: absolute;
+  top: 50%;
+  /* Sized by the viewport's width so the first three pockets always clear the headline and fit on screen. */
+  right: -21vw;
+  z-index: -1;
+  height: 65.5vw;
+  aspect-ratio: 1586 / 992;
+  transform: translateY(-50%);
+  container-type: inline-size;
+}
+
+/* The photograph's own cloth fades into the page's cloth on the left, and along its top and bottom edges. */
+.hero__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 3%, #000 25%),
+    linear-gradient(180deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 3%, #000 25%),
+    linear-gradient(180deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* The photograph settles into the page along the bottom edge. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: -1;
+  height: 22%;
+  background: linear-gradient(0deg, var(--kachi) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ---------- Live cards in the photographed pockets ---------- */
+
+/* The strip above one pocket's top edge. Only its bottom edge clips, so a card looks tucked in. */
+.hero-pocket {
+  position: absolute;
+  top: 0;
+  clip-path: inset(-20% -40% 0 -40%);
+  pointer-events: none;
+}
+
+/* A pocket being looked through fans its cards over its neighbours, not under them. */
+.hero-pocket[data-lifted] {
+  z-index: 2;
+}
+
+/* The shadow the pocket's edge throws onto whatever stands in it. It deepens as cards are drawn out. */
+.hero-pocket::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 4;
+  height: 1.2cqw;
+  background: linear-gradient(0deg, rgb(10 13 34 / 0.62), transparent);
+  pointer-events: none;
+  transition: height 0.35s var(--ease-out);
+}
+
+.hero-pocket[data-lifted]::after {
+  height: 2.2cqw;
+}
+
+/* One snip standing in a pocket. The button carries the movement; the paper inside is what travels to the full view. */
+.hero-card {
+  position: absolute;
+  display: block;
+  border-radius: 0.8cqw;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.hero-card:focus-visible {
+  box-shadow: none;
+  outline: 0.2cqw solid var(--kamenozoki);
+  outline-offset: 0.25cqw;
+}
+
+.hero-card__paper {
+  display: block;
+  padding: 0.38cqw;
+  border-radius: 0.8cqw;
+  /* The paper of the cards in the photograph. */
+  background: #eee8da;
+  box-shadow: 0 0.15cqw 0.3cqw rgb(9 11 30 / 0.35), 0 0.7cqw 1.5cqw -0.4cqw rgb(9 11 30 / 0.65);
+}
+
+.hero-card img {
+  display: block;
+  width: 100%;
+  border-radius: 0.5cqw;
+}
+
+/* ---------- A hero card, opened ---------- */
+
+.detail {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(420px, 38vw);
+  gap: 24px;
+  align-items: center;
+  padding: clamp(16px, 4vw, 56px);
+  backdrop-filter: blur(12px);
+}
+
+.detail__image {
+  justify-self: center;
+  max-width: 100%;
+  padding: 7px;
+  border-radius: 12px;
+  background: #eee8da;
+  box-shadow: var(--shadow-lift);
+}
+
+.detail__image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 140px);
+  border-radius: 7px;
+}
+
+.detail__slip {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+  padding: 24px 26px 26px;
+  border-radius: 20px;
+  background: var(--kinari);
+  color: var(--ink);
+  box-shadow: var(--shadow-sheet);
+}
+
+.detail__slip :focus-visible {
+  box-shadow: 0 0 0 2px var(--kinari), 0 0 0 4px var(--kon);
+}
+
+.detail__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail__pocket {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px 0 5px;
+  border-radius: var(--radius-pill);
+  background: rgb(23 26 54 / 0.065);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.detail__swatch {
+  --cloth: var(--kon-lift);
+  position: relative;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.detail__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+}
+
+.detail__close:hover {
+  background: rgb(23 26 54 / 0.07);
+  color: var(--ink);
+}
+
+.detail__slip h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+
+.detail__slip h3 {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.detail__summary {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.detail__prompt {
+  padding: 15px 17px;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(23 26 54 / 0.11);
+  font-size: 14px;
+  line-height: 1.62;
+  white-space: pre-line;
+}
+
+.detail .button {
+  justify-self: start;
+}
+
+.nav {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px var(--gutter);
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.mark {
+  width: 30px;
+  height: 30px;
+}
+
+.nav__link {
+  padding: 8px 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+  border-bottom: 1.5px dashed rgb(162 215 221 / 0.45);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav__link:hover {
+  color: var(--kinari);
+  border-color: var(--kinari);
+}
+
+.hero__text {
+  width: min(100%, 540px, 42vw);
+}
+
+.headline {
+  margin: 0 0 22px -3px;
+}
+
+.headline svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.headline text {
+  font-family: var(--font);
+  font-size: 96px;
+  font-weight: 900;
+  letter-spacing: -2.5px;
+}
+
+/* The cotton fills in once the letters have been sewn round. */
+.headline__cotton {
+  fill: var(--kinari);
+  animation: dye 0.7s 1.25s var(--ease-out) both;
+}
+
+.headline__stitch {
+  fill: none;
+  stroke: var(--kinari);
+  stroke-width: 2.4px;
+  stroke-dasharray: 7 6;
+  stroke-linecap: round;
+  animation: unpick 0.6s 1.5s var(--ease-out) both;
+}
+
+/* The needle: a solid stroke that travels round each letter, revealing the stitches behind it. */
+.headline__needle {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 9px;
+  stroke-dasharray: 1400;
+  animation: sew 1.5s 0.15s cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+
+@keyframes sew {
+  from {
+    stroke-dashoffset: 1400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dye {
+  from {
+    fill-opacity: 0;
+  }
+}
+
+/* Against the filled letter the thread turns indigo, so it reads as a hem. */
+@keyframes unpick {
+  to {
+    stroke: var(--kon);
+    stroke-width: 1.6px;
+    stroke-opacity: 0.55;
+  }
+}
+
+.hero__lede {
+  max-width: 34em;
+  margin-bottom: 30px;
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.65;
+  color: #dbe7ee;
+}
+
+.hero__lede .keycap {
+  height: 26px;
+  padding: 0 8px;
+  font-size: 14px;
+  color: var(--kinari);
+  background: rgb(251 250 245 / 0.14);
+  box-shadow: inset 0 -1.5px 0 rgb(9 11 30 / 0.5), inset 0 0 0 1px rgb(251 250 245 / 0.22);
+  vertical-align: 2px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.hero__small {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 50px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: transform 0.16s var(--ease-out), background 0.15s, box-shadow 0.15s;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button--cotton {
+  background: var(--kinari);
+  color: var(--ink);
+}
+
+.button--cotton:hover {
+  background: #fff;
+}
+
+/* An outline sewn rather than drawn. */
+.button--thread {
+  color: var(--kinari);
+  background: rgb(24 27 57 / 0.4);
+  border: 1.5px dashed rgb(251 250 245 / 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.button--thread:hover {
+  border-color: var(--kinari);
+  background: rgb(24 27 57 / 0.6);
+}
+
+.button--primary {
+  height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+  background: var(--kon);
+  color: var(--kinari);
+}
+
+.button--primary:hover {
+  background: var(--kon-lift);
+}
+
+.button--paper {
+  height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px rgb(23 26 54 / 0.2);
+}
+
+.button--paper:hover {
+  background: rgb(23 26 54 / 0.055);
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: clamp(64px, 9vw, 120px) var(--gutter) 0;
+}
+
+.section__head {
+  max-width: 40em;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.section h2 {
+  margin-bottom: 12px;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.section__head p {
+  max-width: 36em;
+  color: var(--text-soft);
+}
+
+/* ---------- Demo ---------- */
+
+.demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.demo__left {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.demo__stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1440 / 900;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lift), 0 0 0 1px rgb(162 215 221 / 0.14);
+  cursor: crosshair;
+  user-select: none;
+}
+
+.demo__screen {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.demo__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: rgb(16 18 41 / 0.46);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.demo__stage[data-phase='filed'] .demo__shade {
+  opacity: 0.55;
+}
+
+.demo__selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  --stitch-width: 2px;
+  --stitch-dash: 8 6.5;
+  filter: drop-shadow(0 0 1.5px rgb(16 18 41 / 0.9));
+}
+
+.demo__paper {
+  position: relative;
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 0 0 4px var(--kinari), 0 12px 26px rgb(9 11 30 / 0.55);
+}
+
+.cutout {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.cutout img {
+  position: absolute;
+  max-width: none;
+}
+
+.demo__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: rgb(16 18 41 / 0.88);
+  color: var(--kinari);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.demo__hint--working::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: var(--akane);
+}
+
+.shelf {
+  --cloth: var(--kon);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  padding: 66px 22px 24px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-paper);
+}
+
+.shelf__pocket {
+  position: relative;
+  height: 112px;
+}
+
+.shelf__card {
+  position: absolute;
+  inset: auto 0 calc(100% - 18px) 0;
+  display: grid;
+  justify-items: center;
+}
+
+.shelf__front {
+  --cloth: var(--kon-shade);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 4px 4px 11px 11px;
+  box-shadow: 0 -8px 12px -6px rgb(9 11 30 / 0.6), inset 0 4px 0 rgb(255 255 255 / 0.07);
+  transition: background-color 0.3s;
+}
+
+.shelf__pocket[data-filled] .shelf__front {
+  background-color: #233a74;
+}
+
+.shelf__front .pattern {
+  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 35%, transparent 78%);
+}
+
+.shelf__name {
+  position: absolute;
+  inset: auto 0 9px 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.result {
+  display: grid;
+  min-height: 220px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  background: var(--kinari);
+  color: var(--ink);
+  box-shadow: var(--shadow-paper);
+}
+
+.result__waiting {
+  align-self: center;
+  justify-self: center;
+  max-width: 22em;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.result__body {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.result__pocket {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.result h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.result__prompt {
+  max-height: 300px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  white-space: pre-line;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+
+.result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.result :focus-visible,
+.install :focus-visible {
+  box-shadow: 0 0 0 2px var(--kinari), 0 0 0 4px var(--kon);
+}
+
+/* ---------- Steps: a real sequence, so it is numbered ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 44px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  padding-top: 22px;
+  border-top: 1.5px dashed rgb(251 250 245 / 0.42);
+}
+
+.step__number {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kamenozoki);
+  font-variant-numeric: tabular-nums;
+}
+
+.step h3 {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.step p {
+  color: var(--text-soft);
+}
+
+/* ---------- Pockets ---------- */
+
+.pockets {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pocket-card {
+  --cloth: var(--kon-shade);
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 6px 6px 16px 16px;
+  box-shadow: var(--shadow-paper), inset 0 5px 0 rgb(255 255 255 / 0.075);
+}
+
+.pocket-card__pattern {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 74%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 74%);
+}
+
+.pocket-card__label {
+  position: absolute;
+  inset: auto 16px 16px 16px;
+  display: grid;
+  gap: 2px;
+}
+
+.pocket-card__label strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pocket-card__label span {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--text-soft);
+}
+
+/* ---------- Model ---------- */
+
+.section--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+}
+
+.section--split .section__head {
+  margin-bottom: 0;
+}
+
+.models {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.models li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 2px;
+  border-bottom: 1.5px dashed rgb(251 250 245 / 0.3);
+}
+
+.models li:first-child {
+  border-top: 1.5px dashed rgb(251 250 245 / 0.3);
+}
+
+.models strong {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.models span {
+  font-size: 15px;
+  color: var(--text-soft);
+  text-align: right;
+}
+
+/* ---------- Install ---------- */
+
+.section--install {
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.install {
+  position: relative;
+  max-width: 720px;
+  border-radius: 18px;
+  background: var(--kinari);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+}
+
+.install pre {
+  margin: 0;
+  padding: 26px 28px;
+  overflow-x: auto;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.install__copy {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: var(--kon);
+  color: var(--kinari);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.install__copy:hover {
+  background: var(--kon-lift);
+}
+
+.install__copy .icon {
+  width: 15px;
+  height: 15px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px var(--gutter) 36px;
+  border-top: 1.5px dashed rgb(251 250 245 / 0.22);
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 900px) {
+  .hero {
+    align-content: end;
+    min-height: 0;
+    padding-top: 300px;
+  }
+
+  /* The roll moves to the top; the text sits on plain cloth beneath it. */
+  .hero__roll {
+    top: 0;
+    right: -32%;
+    height: 340px;
+    transform: none;
+  }
+
+  .hero__photo {
+    -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .detail {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    overflow: auto;
+  }
+
+  .detail__image img {
+    max-height: 46vh;
+  }
+
+  .detail__slip {
+    max-height: none;
+  }
+
+  .hero__text {
+    width: 100%;
+  }
+
+  .demo,
+  .section--split,
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pockets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pocket-card {
+    height: 150px;
+  }
+
+  .shelf {
+    gap: 5px;
+    padding-inline: 14px;
+  }
+
+  .shelf__name {
+    font-size: 10.5px;
+  }
+
+  .demo__hint {
+    font-size: 12.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .headline__needle,
+  .headline__cotton,
+  .headline__stitch {
+    animation-duration: 0.01ms;
+    animation-delay: 0s;
+  }
+}

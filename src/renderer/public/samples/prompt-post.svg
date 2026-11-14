@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="1100" height="700">
+<rect width="1100" height="700" fill="#FFFFFF"/>
+<circle cx="86" cy="86" r="36" fill="#1D9BF0"/><g font-family='-apple-system, Helvetica Neue, Arial, sans-serif'><text x="140" y="80" font-size="24" font-weight="700" fill="#0F1419">Noor builds</text><text x="140" y="110" font-size="20" fill="#536471">@noorbuilds · 4h</text>
+<text x="56" y="186" font-size="27" fill="#0F1419">The critique prompt I use on every screen before it ships:</text></g>
+<rect x="56" y="216" width="988" height="368" rx="20" fill="#F7F9F9" stroke="#E1E8ED" stroke-width="2"/>
+<g font-family='SF Mono, Menlo, Consolas, monospace' font-size="21" fill="#0F1419"><text x="88" y="270">You are a senior product designer reviewing my screen.</text><text x="88" y="306">Critique it in three passes:</text><text x="88" y="354">1. Hierarchy: what does the eye hit first, second, third?</text><text x="88" y="390">2. Friction: every place a new user would hesitate.</text><text x="88" y="426">3. Voice: copy that sounds like a template.</text><text x="88" y="474">For each issue give the fix as a one-line change.</text><text x="88" y="510">Do not praise. Rank issues by impact.</text><text x="88" y="546" fill="#536471">Screen: [attach screenshot]</text></g>
+<g font-family='-apple-system, Helvetica Neue, Arial, sans-serif' font-size="20" fill="#536471"><text x="56" y="646">312 replies</text><text x="230" y="646">2.1K reposts</text><text x="420" y="646">9.8K likes</text><text x="590" y="646">1.4M views</text></g>
+</svg>

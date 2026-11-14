@@ -1,0 +1,35 @@
+name: checks
+
+on:
+  push:
+  pull_request:
+
+# Runs every check on macOS and Windows. The app test drives the real Electron
+# app in test mode (no window shown), so it is also what proves the Windows build.
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npx playwright install chromium
+      - run: npm run test:ui
+      - run: npm run test:site
+      - run: npm run test:app
+      - run: npm run site:build
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: test-results

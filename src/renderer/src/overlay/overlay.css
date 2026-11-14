@@ -1,0 +1,340 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.frame,
+.shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Everything outside the selection is dimmed with the darkest indigo. */
+.shade {
+  fill: rgb(16 18 41 / 0.5);
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.overlay[data-phase='saving'] .shade {
+  opacity: 0;
+}
+
+.cross {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: rgb(251 250 245 / 0.75);
+  box-shadow: 0 0 0 0.5px rgb(16 18 41 / 0.45);
+}
+
+.cross--x {
+  width: 100%;
+  height: 1px;
+}
+
+.cross--y {
+  width: 1px;
+  height: 100%;
+}
+
+/* ---------- Selection: a running stitch around what will be cut out ---------- */
+
+.selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.selection__stitch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.selection__stitch rect {
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* A dark line under the thread keeps it visible on light screens. */
+.selection__under {
+  stroke: rgb(16 18 41 / 0.72);
+  stroke-width: 4px;
+}
+
+.selection__thread {
+  stroke: var(--kinari);
+  stroke-width: 2px;
+  stroke-dasharray: 8 6.5;
+}
+
+.overlay[data-phase='dragging'] .selection__thread {
+  animation: stitch-march 0.5s linear infinite;
+}
+
+.selection__body {
+  position: absolute;
+  inset: 0;
+  cursor: move;
+}
+
+.grip {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: -12px;
+}
+
+.grip::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--kinari);
+  box-shadow: 0 0 0 2px var(--kon), 0 2px 5px rgb(9 11 30 / 0.6);
+}
+
+.grip[data-grip='nw'] { top: 0; left: 0; cursor: nwse-resize; }
+.grip[data-grip='n'] { top: 0; left: 50%; cursor: ns-resize; }
+.grip[data-grip='ne'] { top: 0; left: 100%; cursor: nesw-resize; }
+.grip[data-grip='e'] { top: 50%; left: 100%; cursor: ew-resize; }
+.grip[data-grip='se'] { top: 100%; left: 100%; cursor: nwse-resize; }
+.grip[data-grip='s'] { top: 100%; left: 50%; cursor: ns-resize; }
+.grip[data-grip='sw'] { top: 100%; left: 0; cursor: nesw-resize; }
+.grip[data-grip='w'] { top: 50%; left: 0; cursor: ew-resize; }
+
+.size {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: rgb(16 18 41 / 0.86);
+  color: var(--kinari);
+  font-size: var(--size-1);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.size[data-inside] {
+  top: auto;
+  right: 10px;
+  bottom: 10px;
+}
+
+/* The note takes the space under the selection, so the size moves above it. */
+.overlay[data-phase='selected'] .size {
+  top: auto;
+  bottom: calc(100% + 10px);
+}
+
+.overlay[data-phase='selected'] .size[data-inside] {
+  top: 10px;
+  bottom: auto;
+}
+
+/* ---------- Magnifier ---------- */
+
+.loupe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.loupe__glass {
+  position: relative;
+  width: 124px;
+  height: 124px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--kinari), 0 0 0 4px var(--kon), 0 14px 30px -8px rgb(9 11 30 / 0.8);
+}
+
+.loupe__glass canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The pixel under the pointer. */
+.loupe__glass::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  box-shadow: 0 0 0 1.5px var(--kinari), 0 0 0 2.5px rgb(16 18 41 / 0.7);
+}
+
+.loupe__label {
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgb(16 18 41 / 0.86);
+  color: var(--kinari);
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Note: a paper tag tied to the selection by the red thread ---------- */
+
+.note {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 7px 0 20px;
+  border-radius: var(--radius-pill);
+  background: var(--kinari);
+  box-shadow: 0 2px 4px rgb(9 11 30 / 0.3), 0 20px 44px -14px rgb(9 11 30 / 0.85);
+  cursor: default;
+  animation: note-in 0.26s var(--ease-out) both;
+}
+
+@keyframes note-in {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+.note input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--size-3);
+  user-select: text;
+  cursor: text;
+}
+
+.note input:focus-visible {
+  box-shadow: none;
+}
+
+.note input::placeholder {
+  color: var(--ink-faint);
+}
+
+.note__save {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 10px 0 17px;
+  border-radius: var(--radius-pill);
+  background: var(--kon);
+  color: var(--kinari);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.15s, transform 0.16s var(--ease-out);
+}
+
+.note__save:hover {
+  background: var(--kon-lift);
+}
+
+.note__save:active {
+  transform: scale(0.96);
+}
+
+.note__save:focus-visible {
+  box-shadow: 0 0 0 2px var(--kinari), 0 0 0 4px var(--kon);
+}
+
+.note__save .keycap {
+  color: var(--kamenozoki);
+  background: rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+}
+
+.note__thread {
+  position: absolute;
+  left: 28%;
+  bottom: calc(100% - 6px);
+  width: 24px;
+  height: 22px;
+  margin-left: -12px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.note__thread path {
+  fill: none;
+  stroke: var(--akane);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.note__thread circle {
+  fill: var(--akane);
+}
+
+.note[data-side='above'] .note__thread {
+  top: calc(100% - 6px);
+  bottom: auto;
+  transform: scaleY(-1);
+}
+
+.note[data-side='inside'] .note__thread {
+  display: none;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+  padding: 0 10px 0 18px;
+  border-radius: var(--radius-pill);
+  background: rgb(16 18 41 / 0.88);
+  color: var(--kinari);
+  font-size: var(--size-2);
+  font-weight: 500;
+  white-space: nowrap;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+/* ---------- The saved snip leaving for the corner ---------- */
+
+.flight {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 2px;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.flight img {
+  position: absolute;
+  max-width: none;
+}
