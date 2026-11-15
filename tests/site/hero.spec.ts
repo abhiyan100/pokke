@@ -49,3 +49,19 @@ test('the examples include a tool tip and a prompt, each filed in its own pocket
 
   await expect(page.getByRole('button', { name: 'Open Glass stat card on a mesh gradient, in Prompts' })).toBeVisible()
 })
+
+test('an opened card answers Escape from the moment it appears', async ({ page }) => {
+  // Escape is sent in the same tick the full view is added to the page, before any later task can run.
+  await page.addInitScript(() => {
+    new MutationObserver((_, observer) => {
+      if (!document.querySelector('[role="dialog"]')) return
+      observer.disconnect()
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
+      document.documentElement.dataset.escapeSent = ''
+    }).observe(document, { childList: true, subtree: true })
+  })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Open CLI that trims tool output to save tokens, in Tools' }).click({ position: { x: 30, y: 30 } })
+  await expect(page.locator('html[data-escape-sent]')).toHaveCount(1)
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+})

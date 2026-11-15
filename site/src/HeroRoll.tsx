@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion, type Transition } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Pattern } from '@app/ui/Pattern'
 import { CheckIcon, CloseIcon, CopyIcon } from '@app/ui/icons'
 import { fade, sheet } from '@app/ui/motion'
@@ -148,7 +148,10 @@ function Detail({ card, onClose }: { card: HeroCard; onClose(): void }) {
   const [copied, setCopied] = useState(false)
   const pocket = pocketById(card.pocket)
 
-  useEffect(() => {
+  // A layout effect, so the view takes focus and answers Escape from the moment it is on the page.
+  // A plain effect runs a task later when the view opens from the pull timer, and a key pressed in
+  // that gap would be lost.
+  useLayoutEffect(() => {
     const opener = document.activeElement as HTMLElement | null
     close.current?.focus()
     const onKey = (event: KeyboardEvent) => {
