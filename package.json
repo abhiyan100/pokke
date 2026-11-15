@@ -9,8 +9,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "start": "electron-vite preview",
-    "dev": "electron-vite dev",
+    "start": "install-electron && electron-vite preview",
+    "dev": "install-electron && electron-vite dev",
     "build": "electron-vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "oxlint src site/src tests scripts",
