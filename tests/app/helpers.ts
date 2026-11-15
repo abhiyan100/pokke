@@ -1,9 +1,9 @@
 import { expect, type Page } from '@playwright/test'
-import type { XtractorApi } from '../../src/shared/api'
+import type { PokkeApi } from '../../src/shared/api'
 
 declare global {
   interface Window {
-    xtractor?: XtractorApi
+    pokke?: PokkeApi
   }
 }
 
@@ -16,7 +16,7 @@ declare global {
 export async function freeze(library: Page, overlay: Page): Promise<void> {
   const frame = overlay.locator('.frame')
   const previous = (await frame.count()) > 0 ? await frame.getAttribute('src') : null
-  await library.evaluate(() => window.xtractor!.capture.start())
+  await library.evaluate(() => window.pokke!.capture.start())
   await expect.poll(async () => ((await frame.count()) > 0 ? frame.getAttribute('src') : null)).not.toBe(previous)
   await expect(overlay.locator('.overlay')).toHaveAttribute('data-phase', 'aiming')
 }

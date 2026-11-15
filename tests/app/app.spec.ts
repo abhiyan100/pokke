@@ -37,7 +37,7 @@ async function pageFor(name: 'library' | 'overlay' | 'toast'): Promise<Page> {
   return open()!
 }
 
-const snips = (page: Page) => page.evaluate(() => window.xtractor!.snips.list())
+const snips = (page: Page) => page.evaluate(() => window.pokke!.snips.list())
 
 test.beforeAll(async () => {
   test.skip(!existsSync(join(root, 'out/main/index.js')), 'Run `npm run build` first.')
@@ -64,14 +64,14 @@ test.beforeAll(async () => {
   await new Promise<void>((done) => model.listen(0, '127.0.0.1', done))
   modelUrl = `http://127.0.0.1:${(model.address() as AddressInfo).port}`
 
-  dataDir = await mkdtemp(join(tmpdir(), 'xtractor-test-'))
+  dataDir = await mkdtemp(join(tmpdir(), 'pokke-test-'))
   app = await electron.launch({
     args: [root],
     env: {
       ...process.env,
-      XTRACTOR_TEST: '1',
-      XTRACTOR_DATA_DIR: dataDir,
-      XTRACTOR_FIXTURE: join(root, 'tests/fixtures/screen.png')
+      POKKE_TEST: '1',
+      POKKE_DATA_DIR: dataDir,
+      POKKE_FIXTURE: join(root, 'tests/fixtures/screen.png')
     }
   })
 })
@@ -159,12 +159,12 @@ test('snip, note, save, and have a model file it', async () => {
 
   await test.step('choosing a model files the waiting snip', async () => {
     const models = await library.evaluate(
-      (url) => window.xtractor!.settings.save({ provider: 'ollama', baseUrl: url }).then(() => window.xtractor!.settings.models('ollama')),
+      (url) => window.pokke!.settings.save({ provider: 'ollama', baseUrl: url }).then(() => window.pokke!.settings.models('ollama')),
       modelUrl
     )
     // Vision-capable models are offered first.
     expect(models).toEqual(['llava:7b', 'tiny-text:1b'])
-    await library.evaluate((id) => window.xtractor!.settings.save({ model: id }), models[0]!)
+    await library.evaluate((id) => window.pokke!.settings.save({ model: id }), models[0]!)
 
     await expect.poll(async () => (await snips(library))[0]!.status, { timeout: 15_000 }).toBe('ready')
     const filed = (await snips(library))[0]!
@@ -192,7 +192,7 @@ test('snip, note, save, and have a model file it', async () => {
   })
 
   await test.step('deleting removes the files', async () => {
-    await library.evaluate((id) => window.xtractor!.snips.remove(id), saved.id)
+    await library.evaluate((id) => window.pokke!.snips.remove(id), saved.id)
     await expect.poll(async () => (await snips(library)).length).toBe(0)
     expect(existsSync(join(dataDir, 'library/images', `${saved.id}.png`))).toBe(false)
   })
@@ -207,7 +207,7 @@ test('snip, note, save, and have a model file it', async () => {
     await expect.poll(() => overlay.isClosed()).toBe(true)
 
     // The app makes a fresh overlay window for the next snip.
-    await library.evaluate(() => window.xtractor!.capture.start())
+    await library.evaluate(() => window.pokke!.capture.start())
     const reopened = await pageFor('overlay')
     await expect(reopened.locator('.overlay')).toHaveAttribute('data-phase', 'aiming')
     await reopened.keyboard.press('Escape')
@@ -216,10 +216,10 @@ test('snip, note, save, and have a model file it', async () => {
 
 /**
  * Copying replaces whatever is on the clipboard, so this only runs when asked:
- * XTRACTOR_TEST_CLIPBOARD=1 npm run test:app
+ * POKKE_TEST_CLIPBOARD=1 npm run test:app
  */
 test('copy puts the prompt, then the image, on the clipboard', async () => {
-  test.skip(process.env.XTRACTOR_TEST_CLIPBOARD !== '1', 'Touches the system clipboard; opt in to run.')
+  test.skip(process.env.POKKE_TEST_CLIPBOARD !== '1', 'Touches the system clipboard; opt in to run.')
   const library = await pageFor('library')
   const overlay = await pageFor('overlay')
 
@@ -246,10 +246,10 @@ test('copy puts the prompt, then the image, on the clipboard', async () => {
     await expect.poll(async () => (await snips(library))[0]?.status, { timeout: 15_000 }).toBe('ready')
     const id = (await snips(library))[0]!.id
 
-    await library.evaluate((snipId) => window.xtractor!.snips.copy(snipId, 'prompt'), id)
+    await library.evaluate((snipId) => window.pokke!.snips.copy(snipId, 'prompt'), id)
     expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe(FILED.prompt)
 
-    await library.evaluate((snipId) => window.xtractor!.snips.copy(snipId, 'image'), id)
+    await library.evaluate((snipId) => window.pokke!.snips.copy(snipId, 'image'), id)
     expect(await app.evaluate(({ clipboard }) => clipboard.has('image/png'))).toBe(true)
   } finally {
     await app.evaluate(async ({ clipboard, ClipboardItem }) => {

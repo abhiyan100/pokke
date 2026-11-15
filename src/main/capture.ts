@@ -25,7 +25,7 @@ interface CaptureHooks {
 
 /** True when the app may read the screen. Only macOS gates this; a fixture image needs no access. */
 export function screenAccessGranted(): boolean {
-  if (!isMac || process.env.XTRACTOR_FIXTURE) return true
+  if (!isMac || process.env.POKKE_FIXTURE) return true
   return systemPreferences.getMediaAccessStatus('screen') === 'granted'
 }
 
@@ -90,7 +90,7 @@ export class CaptureSession {
       if (process.platform === 'win32') overlay.setBounds(display.bounds)
       const toast = toastBounds(display)
       const frame: CaptureFrame = {
-        imageUrl: `xtractor://frame/${++this.frameCount}`,
+        imageUrl: `pokke://frame/${++this.frameCount}`,
         width: display.bounds.width,
         height: display.bounds.height,
         toast: {

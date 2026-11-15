@@ -1,4 +1,4 @@
-import type { XtractorApi } from '@shared/api'
+import type { PokkeApi } from '@shared/api'
 import {
   PROVIDER_IDS,
   providerInfo,
@@ -46,7 +46,7 @@ const MODELS: Record<ProviderId, string[]> = {
  *
  * What the UI asked for is recorded on `window.__mock` for tests to read.
  */
-export function createMockApi(): XtractorApi {
+export function createMockApi(): PokkeApi {
   const query = new URLSearchParams(location.search)
   const base = import.meta.env.BASE_URL
   const fresh = query.has('fresh')
@@ -79,7 +79,7 @@ export function createMockApi(): XtractorApi {
   }
 
   return {
-    platform: (query.get('platform') as XtractorApi['platform'] | null) ?? 'darwin',
+    platform: (query.get('platform') as PokkeApi['platform'] | null) ?? 'darwin',
 
     snips: {
       list: async () => snips,

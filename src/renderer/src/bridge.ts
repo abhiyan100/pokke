@@ -1,10 +1,10 @@
-import type { XtractorApi } from '@shared/api'
+import type { PokkeApi } from '@shared/api'
 import type { DoubleTapKey } from '@shared/types'
 
 declare global {
   interface Window {
     /** Present inside the app; absent in a plain browser. */
-    xtractor?: XtractorApi
+    pokke?: PokkeApi
   }
 }
 
@@ -12,7 +12,7 @@ declare global {
  * The app bridge. Inside Electron it is the preload API; anywhere else the
  * mock is loaded on demand, so its sample data never ships in the app's path.
  */
-export const api: XtractorApi = window.xtractor ?? (await import('./mock/api')).createMockApi()
+export const api: PokkeApi = window.pokke ?? (await import('./mock/api')).createMockApi()
 
 export const isMac = api.platform === 'darwin'
 

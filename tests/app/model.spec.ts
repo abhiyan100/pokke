@@ -10,13 +10,13 @@ import { freeze } from './helpers'
  * a model running in Ollama on this computer. It needs a model that can read
  * images, so it only runs when one is named:
  *
- *   XTRACTOR_TEST_OLLAMA_MODEL=gemma3:4b npm run test:app
+ *   POKKE_TEST_OLLAMA_MODEL=gemma3:4b npm run test:app
  *
  * What the model wrote is saved next to the test results for a person to read.
  */
 
 const root = resolve(import.meta.dirname, '../..')
-const model = process.env.XTRACTOR_TEST_OLLAMA_MODEL ?? ''
+const model = process.env.POKKE_TEST_OLLAMA_MODEL ?? ''
 
 /**
  * Ollama speaks two protocols. Its own exercises the Ollama provider; its
@@ -32,10 +32,10 @@ for (const route of ROUTES) test(`a real local model files a snip over ${route.n
   test.skip(!model, 'Names no Ollama model; opt in to run.')
   test.setTimeout(300_000)
 
-  const dataDir = await mkdtemp(join(tmpdir(), 'xtractor-model-'))
+  const dataDir = await mkdtemp(join(tmpdir(), 'pokke-model-'))
   const app = await electron.launch({
     args: [root],
-    env: { ...process.env, XTRACTOR_TEST: '1', XTRACTOR_DATA_DIR: dataDir, XTRACTOR_FIXTURE: join(root, 'tests/fixtures/screen.png') }
+    env: { ...process.env, POKKE_TEST: '1', POKKE_DATA_DIR: dataDir, POKKE_FIXTURE: join(root, 'tests/fixtures/screen.png') }
   })
 
   try {
@@ -46,8 +46,8 @@ for (const route of ROUTES) test(`a real local model files a snip over ${route.n
     const library = await page('library')
     const overlay = await page('overlay')
 
-    await library.evaluate((settings) => window.xtractor!.settings.save(settings), route.settings)
-    await library.evaluate((id) => window.xtractor!.settings.save({ model: id }), model)
+    await library.evaluate((settings) => window.pokke!.settings.save(settings), route.settings)
+    await library.evaluate((id) => window.pokke!.settings.save({ model: id }), model)
 
     // The design in the first post of the sample desktop, which is drawn at 1440 x 900.
     const display = await app.evaluate(({ screen }) => screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).size)
@@ -62,7 +62,7 @@ for (const route of ROUTES) test(`a real local model files a snip over ${route.n
     await overlay.getByLabel('Note for this snip').fill('this hero for my portfolio relaunch')
     await overlay.keyboard.press('Enter')
 
-    const first = async () => (await library.evaluate(() => window.xtractor!.snips.list()))[0]
+    const first = async () => (await library.evaluate(() => window.pokke!.snips.list()))[0]
     await expect.poll(async () => (await first())?.status, { timeout: 280_000, intervals: [1000] }).not.toBe('analyzing')
     const snip = (await first())!
 

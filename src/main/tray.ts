@@ -13,7 +13,7 @@ export function createTray(actions: TrayActions, shortcut: string): Tray {
   if (isMac) icon.setTemplateImage(true)
 
   const tray = new Tray(icon)
-  tray.setToolTip('Xtractor')
+  tray.setToolTip('Pokke')
   tray.setContextMenu(
     Menu.buildFromTemplate([
       { label: 'Snip', accelerator: shortcut || undefined, click: actions.snip },
@@ -21,7 +21,7 @@ export function createTray(actions: TrayActions, shortcut: string): Tray {
       { type: 'separator' },
       { label: 'Settings…', click: actions.openSettings },
       { type: 'separator' },
-      { label: 'Quit Xtractor', click: () => app.quit() }
+      { label: 'Quit Pokke', click: () => app.quit() }
     ])
   )
   // On Windows and Linux a left click is expected to open the app; macOS shows the menu.

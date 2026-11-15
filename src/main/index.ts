@@ -15,7 +15,7 @@ import { Toast } from './toast'
 import { createTray } from './tray'
 import { createLibraryWindow, present } from './windows'
 
-const SCHEME = 'xtractor'
+const SCHEME = 'pokke'
 /** Long enough for the library window to finish disappearing before the screen is frozen. */
 const LIBRARY_HIDE_MS = 260
 
@@ -25,7 +25,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 if (isTest) {
-  if (process.env.XTRACTOR_DATA_DIR) app.setPath('userData', process.env.XTRACTOR_DATA_DIR)
+  if (process.env.POKKE_DATA_DIR) app.setPath('userData', process.env.POKKE_DATA_DIR)
   app.dock?.hide()
 }
 
@@ -47,7 +47,7 @@ function toSnip(record: SnipRecord): Snip {
 
 async function main(): Promise<void> {
   // Windows groups taskbar windows and notifications by this id.
-  if (process.platform === 'win32') app.setAppUserModelId('com.xtractor.app')
+  if (process.platform === 'win32') app.setAppUserModelId('com.pokke.app')
   if (!app.requestSingleInstanceLock()) {
     app.quit()
     return

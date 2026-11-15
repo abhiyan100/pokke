@@ -9,14 +9,14 @@ export const isMac = process.platform === 'darwin'
  * keychain access. It exists so the app can be driven by automated tests
  * without touching the user's screen.
  */
-export const isTest = process.env.XTRACTOR_TEST === '1'
+export const isTest = process.env.POKKE_TEST === '1'
 
 /**
  * Lets a test start the real key hook (and only that: no shortcut is
  * registered). Used by the opt-in live test on a machine that has already
  * granted Accessibility, so it cannot cause a prompt.
  */
-export const testHotkey = isTest && process.env.XTRACTOR_TEST_HOTKEY === '1'
+export const testHotkey = isTest && process.env.POKKE_TEST_HOTKEY === '1'
 
 /** Set by the dev server; absent in a production build. */
 export const devServerUrl = process.env.ELECTRON_RENDERER_URL

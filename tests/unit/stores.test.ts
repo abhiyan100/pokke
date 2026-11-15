@@ -9,7 +9,7 @@ import type { SnipRecord } from '../../src/shared/types'
 let dir: string
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), 'xtractor-unit-'))
+  dir = await mkdtemp(join(tmpdir(), 'pokke-unit-'))
 })
 
 afterEach(async () => {

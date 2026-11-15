@@ -50,7 +50,7 @@ export function createLibraryWindow(): BrowserWindow {
     height: 820,
     minWidth: 920,
     minHeight: 640,
-    title: 'Xtractor',
+    title: 'Pokke',
     backgroundColor: GROUND,
     ...(isMac
       ? { titleBarStyle: 'hiddenInset', trafficLightPosition: { x: 20, y: 22 } }

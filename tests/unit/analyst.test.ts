@@ -32,7 +32,7 @@ const snip: SnipRecord = {
 }
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), 'xtractor-unit-'))
+  dir = await mkdtemp(join(tmpdir(), 'pokke-unit-'))
   library = new Library(join(dir, 'library'))
   settings = new SettingsStore(join(dir, 'settings.json'), plain)
   await Promise.all([library.open(), settings.open()])

@@ -2,7 +2,7 @@ import type { PocketId } from '@shared/pockets'
 import type { Rect } from '@shared/types'
 
 /** Where the project lives. */
-export const REPO_URL = 'https://github.com/abhiyan100/xtractor'
+export const REPO_URL = 'https://github.com/abhiyan100/pokke'
 
 /** The sample desktop used by the demo is drawn at this size. */
 export const SCREEN = { width: 1440, height: 900 }

@@ -18,7 +18,7 @@ type Unsubscribe = () => void
  * Everything the UI can ask the app to do. The preload script implements this
  * over IPC; in a plain browser the mock bridge implements it with sample data.
  */
-export interface XtractorApi {
+export interface PokkeApi {
   platform: Platform
 
   snips: {

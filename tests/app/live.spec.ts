@@ -12,7 +12,7 @@ import { freeze } from './helpers'
  * it only runs when asked and only makes sense where Screen Recording and
  * Accessibility are already granted to the launching terminal:
  *
- *   XTRACTOR_TEST_LIVE=1 npm run test:app
+ *   POKKE_TEST_LIVE=1 npm run test:app
  *
  * The captured image stays in a temp folder that is deleted afterwards.
  */
@@ -28,11 +28,11 @@ async function pageFor(name: 'library' | 'overlay'): Promise<Page> {
 }
 
 test.beforeAll(async () => {
-  test.skip(process.env.XTRACTOR_TEST_LIVE !== '1', 'Reads the live screen; opt in to run.')
-  dataDir = await mkdtemp(join(tmpdir(), 'xtractor-live-'))
+  test.skip(process.env.POKKE_TEST_LIVE !== '1', 'Reads the live screen; opt in to run.')
+  dataDir = await mkdtemp(join(tmpdir(), 'pokke-live-'))
   app = await electron.launch({
     args: [root],
-    env: { ...process.env, XTRACTOR_TEST: '1', XTRACTOR_TEST_HOTKEY: '1', XTRACTOR_DATA_DIR: dataDir, XTRACTOR_FIXTURE: '' }
+    env: { ...process.env, POKKE_TEST: '1', POKKE_TEST_HOTKEY: '1', POKKE_DATA_DIR: dataDir, POKKE_FIXTURE: '' }
   })
 })
 
@@ -45,7 +45,7 @@ test('the real screen is captured at native resolution and cropped to the select
   const library = await pageFor('library')
   const overlay = await pageFor('overlay')
 
-  const permissions = await library.evaluate(() => window.xtractor!.settings.permissions())
+  const permissions = await library.evaluate(() => window.pokke!.settings.permissions())
   test.skip(!permissions.screen, 'Screen Recording is not granted to this terminal.')
 
   const display = await app.evaluate(({ screen }) => {
@@ -73,8 +73,8 @@ test('the real screen is captured at native resolution and cropped to the select
   await overlay.mouse.up()
   await overlay.keyboard.press('Enter')
 
-  await expect.poll(async () => (await library.evaluate(() => window.xtractor!.snips.list())).length).toBe(1)
-  const [snip] = await library.evaluate(() => window.xtractor!.snips.list())
+  await expect.poll(async () => (await library.evaluate(() => window.pokke!.snips.list())).length).toBe(1)
+  const [snip] = await library.evaluate(() => window.pokke!.snips.list())
   expect([snip!.width, snip!.height]).toEqual([300 * display.scale, 200 * display.scale])
   expect((await stat(join(dataDir, 'library/images', `${snip!.id}.png`))).size).toBeGreaterThan(200)
 
@@ -90,17 +90,17 @@ test('the real screen is captured at native resolution and cropped to the select
 
   // The temporary full-screen grabs are removed once the snip is saved.
   await expect
-    .poll(async () => (await readdir(tmpdir())).filter((name) => /^xtractor-\d+-\d+\.(png|jpg)$/.test(name)).length)
+    .poll(async () => (await readdir(tmpdir())).filter((name) => /^pokke-\d+-\d+\.(png|jpg)$/.test(name)).length)
     .toBe(0)
 })
 
 test('the key hook for the double-tap starts', async () => {
   const library = await pageFor('library')
-  const permissions = await library.evaluate(() => window.xtractor!.settings.permissions())
+  const permissions = await library.evaluate(() => window.pokke!.settings.permissions())
   test.skip(!permissions.accessibility, 'Accessibility is not granted to this terminal.')
 
   await expect
-    .poll(() => library.evaluate(() => window.xtractor!.settings.permissions().then((now) => now.doubleTapActive)))
+    .poll(() => library.evaluate(() => window.pokke!.settings.permissions().then((now) => now.doubleTapActive)))
     .toBe(true)
 })
 
@@ -116,13 +116,13 @@ test('a double-tap of the chosen key starts a snip', async () => {
   test.setTimeout(120_000)
   const library = await pageFor('library')
   const overlay = await pageFor('overlay')
-  const permissions = await library.evaluate(() => window.xtractor!.settings.permissions())
+  const permissions = await library.evaluate(() => window.pokke!.settings.permissions())
   test.skip(!permissions.accessibility, 'Accessibility is not granted to this terminal.')
 
   // Right Option, so the test cannot set off Siri or Dictation.
-  await library.evaluate(() => window.xtractor!.settings.save({ doubleTapKey: 'alt' }))
+  await library.evaluate(() => window.pokke!.settings.save({ doubleTapKey: 'alt' }))
   await expect
-    .poll(() => library.evaluate(() => window.xtractor!.settings.permissions().then((now) => now.doubleTapActive)))
+    .poll(() => library.evaluate(() => window.pokke!.settings.permissions().then((now) => now.doubleTapActive)))
     .toBe(true)
   await expect(overlay.locator('.overlay')).not.toHaveAttribute('data-phase', 'aiming')
 

@@ -1,4 +1,4 @@
-# Xtractor
+# Pokke
 
 Snip anything on your screen, add a note, and your own AI model files it into a pocket with a prompt that is ready to paste next time.
 
@@ -7,8 +7,8 @@ You see a design, a prompt, or an idea while browsing. Double-tap Right ⌘, dra
 ## Run it
 
 ```sh
-git clone https://github.com/abhiyan100/xtractor.git
-cd xtractor
+git clone https://github.com/abhiyan100/pokke.git
+cd pokke
 npm install
 npm start
 ```
@@ -37,7 +37,7 @@ macOS attributes both to the program that launched the app. When you run `npm st
 
 After you save, a thumbnail sits in the corner of the screen while the model files the snip. Click it to open the snip.
 
-If double-tapping Right ⌘ also opens Siri, that is the macOS "Press Either Command Key Twice" shortcut for Type to Siri. Either pick Right ⌥ or Right ⌃ as the double-tap key in Xtractor's settings, or change Siri's shortcut under System Settings › Siri.
+If double-tapping Right ⌘ also opens Siri, that is the macOS "Press Either Command Key Twice" shortcut for Type to Siri. Either pick Right ⌥ or Right ⌃ as the double-tap key in Pokke's settings, or change Siri's shortcut under System Settings › Siri.
 
 Copy the prompt and the image separately: chat apps differ in what they take from a clipboard holding both, so the app copies one at a time and marks the other as the next step.
 
@@ -59,8 +59,8 @@ Snips save without a model. They wait, and are filed as soon as you choose one.
 
 Everything is plain files in the app's data folder:
 
-- macOS: `~/Library/Application Support/xtractor/`
-- Windows: `%APPDATA%\xtractor\`
+- macOS: `~/Library/Application Support/pokke/`
+- Windows: `%APPDATA%\pokke\`
 
 `library/index.json` lists the snips, `library/images/` holds the full-size PNGs, `library/thumbs/` the previews. Nothing is uploaded except the image and note sent to the model you chose.
 
@@ -83,13 +83,13 @@ npm run test:site  # the landing page in headless Chromium
 npm run test:app   # the real app, built, in test mode
 ```
 
-`test:app` runs Electron with `XTRACTOR_TEST=1`: no window is shown, there is no tray icon, shortcut, permission prompt or keychain access, data goes to a temp folder, the "screen" is `tests/fixtures/screen.png`, and the model is a local stand-in.
+`test:app` runs Electron with `POKKE_TEST=1`: no window is shown, there is no tray icon, shortcut, permission prompt or keychain access, data goes to a temp folder, the "screen" is `tests/fixtures/screen.png`, and the model is a local stand-in.
 
 Two parts of it are opt-in because they touch the real machine:
 
-- `XTRACTOR_TEST_CLIPBOARD=1` checks copying. It replaces the clipboard contents and puts them back.
-- `XTRACTOR_TEST_OLLAMA_MODEL=<model>` makes one real model call through a local Ollama model that can read images, and saves what it wrote under `test-results/`.
-- `XTRACTOR_TEST_LIVE=1` captures the real screen (still hidden, into a temp folder that is deleted), starts the real key hook, and sends a Right ⌥ double-tap through the system to check that it starts a snip. It waits for a pause in typing before sending, and is skipped unless the terminal already has Screen Recording and Accessibility.
+- `POKKE_TEST_CLIPBOARD=1` checks copying. It replaces the clipboard contents and puts them back.
+- `POKKE_TEST_OLLAMA_MODEL=<model>` makes one real model call through a local Ollama model that can read images, and saves what it wrote under `test-results/`.
+- `POKKE_TEST_LIVE=1` captures the real screen (still hidden, into a temp folder that is deleted), starts the real key hook, and sends a Right ⌥ double-tap through the system to check that it starts a snip. It waits for a pause in typing before sending, and is skipped unless the terminal already has Screen Recording and Accessibility.
 
 `.github/workflows/ci.yml` runs every check on macOS and Windows on each push.
 

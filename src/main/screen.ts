@@ -20,7 +20,7 @@ export interface Shot {
   temporary: boolean
 }
 
-const TEMP_SHOT = /^xtractor-\d+-\d+\.(png|jpg)$/
+const TEMP_SHOT = /^pokke-\d+-\d+\.(png|jpg)$/
 
 /** The display the pointer is on, which is where the user is looking. */
 export function activeDisplay(): Display {
@@ -35,7 +35,7 @@ export function activeDisplay(): Display {
  * success, which is known to make the second one fail.
  */
 export async function shootDisplay(display: Display): Promise<Shot> {
-  const fixture = process.env.XTRACTOR_FIXTURE
+  const fixture = process.env.POKKE_FIXTURE
   if (fixture) return shotFromImage(nativeImage.createFromPath(fixture), display)
 
   if (process.platform === 'darwin') {
@@ -82,7 +82,7 @@ async function shootWithScreencapture(display: Display): Promise<Shot | null> {
   const primaryId = screen.getPrimaryDisplay().id
   const ordered = [...displays].sort((a, b) => Number(b.id === primaryId) - Number(a.id === primaryId))
   const number = String(ordered.findIndex((candidate) => candidate.id === display.id) + 1)
-  const file = join(tmpdir(), `xtractor-${process.pid}-${Date.now()}.png`)
+  const file = join(tmpdir(), `pokke-${process.pid}-${Date.now()}.png`)
 
   // Decoding a full screen takes a moment, so it waits until the snip is cut,
   // after the overlay (which shows the file directly) is already up.

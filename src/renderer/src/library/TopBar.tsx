@@ -58,9 +58,9 @@ export function TopBar({ query, onQuery, shortcut, onSettings, onHome }: TopBarP
 
   return (
     <header className="topbar">
-      <button className="brand" onClick={onHome} aria-label="Xtractor, all pockets">
+      <button className="brand" onClick={onHome} aria-label="Pokke, all pockets">
         <Mark />
-        <span>Xtractor</span>
+        <span>Pokke</span>
       </button>
 
       <label className="search">

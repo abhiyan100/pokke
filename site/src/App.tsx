@@ -12,7 +12,7 @@ import { REPO_URL } from './content'
 const HEADLINE = ['Snip it.', 'It files itself.']
 
 const INSTALL = `git clone ${REPO_URL}.git
-cd xtractor
+cd pokke
 npm install
 npm start`
 
@@ -112,7 +112,7 @@ export function App() {
           <nav className="nav" aria-label="Main">
             <a className="nav__brand" href="#top">
               <Mark />
-              Xtractor
+              Pokke
             </a>
             <a className="nav__link" href={REPO_URL}>
               GitHub
@@ -127,7 +127,7 @@ export function App() {
             </p>
             <div className="hero__actions">
               <a className="button button--cotton" href="#install">
-                Get Xtractor
+                Get Pokke
               </a>
               <a className="button button--thread" href="#demo">
                 Try a snip
@@ -217,7 +217,7 @@ export function App() {
         <footer className="footer">
           <span className="nav__brand">
             <Mark />
-            Xtractor
+            Pokke
           </span>
           <a className="nav__link" href={REPO_URL}>
             Source on GitHub

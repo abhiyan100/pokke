@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer, type IpcRendererEvent } from 'electron'
-import { CHANNEL, type XtractorApi } from '@shared/api'
+import { CHANNEL, type PokkeApi } from '@shared/api'
 import type { Platform } from '@shared/types'
 
 /** Subscribes to a channel and returns the function that unsubscribes. */
@@ -9,7 +9,7 @@ function listen<T>(channel: string, listener: (value: T) => void): () => void {
   return () => ipcRenderer.removeListener(channel, handler)
 }
 
-const api: XtractorApi = {
+const api: PokkeApi = {
   platform: process.platform as Platform,
 
   snips: {
@@ -56,4 +56,4 @@ const api: XtractorApi = {
   }
 }
 
-contextBridge.exposeInMainWorld('xtractor', api)
+contextBridge.exposeInMainWorld('pokke', api)

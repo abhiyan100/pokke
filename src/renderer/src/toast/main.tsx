@@ -4,7 +4,7 @@ import '../ui/base.css'
 import './toast.css'
 import { Toast } from './Toast'
 
-if (!window.xtractor) document.body.dataset.mock = ''
+if (!window.pokke) document.body.dataset.mock = ''
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

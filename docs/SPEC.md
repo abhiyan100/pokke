@@ -1,4 +1,4 @@
-# Xtractor — spec
+# Pokke — spec
 
 Snip anything on screen, add a note, and your own AI model files it into a pocket with a prompt that is ready to paste next time.
 
@@ -38,9 +38,9 @@ tests         vitest (logic) + Playwright (UI in headless Chromium, mock bridge)
 ```
 
 - Library on disk: `<userData>/library/index.json` + `images/<id>.png` + `thumbs/<id>.jpg`. Writes are atomic (temp file then rename).
-- Images reach the UI through an `xtractor://` protocol, not `file://`.
+- Images reach the UI through an `pokke://` protocol, not `file://`.
 - API keys are encrypted with Electron `safeStorage` (OS keychain).
-- The renderer talks to `window.xtractor`. In a plain browser that object is absent and a mock with sample data takes its place, which is how the UI is tested without opening a window.
+- The renderer talks to `window.pokke`. In a plain browser that object is absent and a mock with sample data takes its place, which is how the UI is tested without opening a window.
 - Hotkey: `uiohook-napi` for the modifier double-tap (needs Accessibility permission on macOS); a regular shortcut (⌘⇧2 / Ctrl+Shift+2) always works as the fallback.
 
 ## Pockets

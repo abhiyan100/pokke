@@ -11,12 +11,12 @@ const alias = { '@shared': resolve(root, 'src/shared') }
  * protocol. Applied to builds only: the dev server needs inline scripts for HMR.
  */
 const contentSecurityPolicy = (): Plugin => ({
-  name: 'xtractor-csp',
+  name: 'pokke-csp',
   apply: 'build',
   transformIndexHtml: (html) =>
     html.replace(
       '<!--csp-->',
-      `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' xtractor: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'" />`
+      `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' pokke: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'" />`
     )
 })
 
